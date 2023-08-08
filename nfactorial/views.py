@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import BadRequest
-
+import random
 
 # Create your views here.
 def hello(request):
@@ -32,3 +32,20 @@ def calc(request, first, operation, second):
 
     else:
         raise BadRequest("Invalid parametres")
+
+def random_number(request, min, max):
+    return HttpResponse(f"Random number is: {random.randint(min, max)}")
+
+def reverse(request, text):
+    return HttpResponse(f"Reversed text is: {text[::-1]}")
+
+def factorial(request, number):    
+    if number < 0:
+        raise BadRequest("Number is negative")
+
+    result = 1
+
+    for n in range(2, number+1):
+        result *= n
+
+    return HttpResponse(f"Factorial of {number} is {result}")
